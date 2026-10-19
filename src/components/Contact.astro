@@ -1,0 +1,79 @@
+---
+const email = "almeydaibrahim@gmail.com";
+---
+
+<section id="contacto" class="section grid-bg crop-marks">
+  <div class="container inner">
+    <p class="label label--accent">[03] Contacto</p>
+    <h2>¿Tienes algo en mente? Hablemos</h2>
+    <p class="lead">
+      Cuéntame qué necesitas y te respondo con una propuesta de cómo lo
+      construiría.
+    </p>
+    <p class="mail" id="mail">{email}</p>
+    <div class="links">
+      <a class="btn btn--primary" href={`mailto:${email}`}>Escribir un correo</a
+      >
+      <button class="btn" id="copy-mail" type="button">Copiar correo</button>
+      <a
+        class="btn"
+        target="_blank"
+        href="https://github.com/IbrahimAlmeyda"
+        rel="noopener">GitHub ↗</a
+      >
+      <a
+        class="btn"
+        target="_blank"
+        href="https://www.linkedin.com/in/ibrahim-almeyda"
+        rel="noopener">LinkedIn ↗</a
+      >
+    </div>
+  </div>
+</section>
+
+<script>
+  const btn = document.getElementById("copy-mail");
+  btn?.addEventListener("click", async () => {
+    const mail = document.getElementById("mail");
+    const original = btn.textContent;
+    try {
+      await navigator.clipboard.writeText(mail?.textContent ?? "");
+      btn.textContent = "Copiado ✓";
+    } catch {
+      btn.textContent = "Selecciona y copia";
+    }
+    setTimeout(() => (btn.textContent = original), 2000);
+  });
+</script>
+
+<style>
+  .section {
+    padding-block: var(--space-7);
+  }
+  .inner {
+    display: grid;
+    gap: var(--space-5);
+    justify-items: start;
+  }
+  h2 {
+    max-width: 16ch;
+  }
+  .lead {
+    margin: 0;
+    max-width: 32rem;
+    font-size: var(--text-lg);
+  }
+  .mail {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-semibold);
+    color: var(--color-ink);
+    user-select: all;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+</style>

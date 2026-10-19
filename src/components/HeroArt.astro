@@ -1,0 +1,88 @@
+<div class="art" aria-hidden="true">
+  <svg viewBox="-20 20 340 310" fill="none">
+    <g class="lines" stroke-width="1.2">
+      <path
+        class="draw"
+        style="--d:.3s"
+        pathLength="1"
+        d="M30 65H122L142 95H290V285H30Z"></path>
+      <path class="draw" style="--d:1s" pathLength="1" d="M80 135H110V245H80Z"
+      ></path>
+      <path
+        class="draw"
+        style="--d:1.2s"
+        pathLength="1"
+        d="M140 245L192 128L244 245H214L192 196L170 245Z"></path>
+      <path
+        class="draw"
+        style="--d:1.5s"
+        pathLength="1"
+        d="M192 158L204 188H180Z"></path>
+    </g>
+    <rect
+      class="bar"
+      x="168"
+      y="203"
+      width="48"
+      height="14"
+      fill="var(--color-accent)"></rect>
+    <g class="dim" stroke-width="0.8">
+      <path d="M30 308H290M30 301V315M290 301V315M-4 65V285M-11 65H3M-11 285H3"
+      ></path>
+      <text x="160" y="323" text-anchor="middle">IA · 260 U</text>
+      <text transform="translate(-10 175) rotate(-90)" text-anchor="middle"
+        >220 U</text
+      >
+    </g>
+  </svg>
+</div>
+
+<style>
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .lines {
+    stroke: color-mix(in srgb, var(--color-ink) 42%, transparent);
+  }
+  .draw {
+    stroke-dasharray: 1;
+    animation: draw 1.9s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s) both;
+  }
+  @keyframes draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  .bar {
+    transform-box: fill-box;
+    animation: bar 800ms var(--ease) 2.1s both;
+  }
+  @keyframes bar {
+    from {
+      transform: translateX(-2.2rem) scaleX(0.2);
+      opacity: 0;
+    }
+  }
+  .dim {
+    stroke: var(--color-line);
+    animation: fade 900ms var(--ease) 2.5s both;
+  }
+  .dim text {
+    fill: var(--color-ink-3);
+    stroke: none;
+    font-family: var(--font-mono);
+    font-size: 8px;
+    letter-spacing: 0.08em;
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+  }
+</style>

@@ -1,0 +1,376 @@
+---
+import { getCollection } from "astro:content";
+
+const lang = "es";
+const projects = (await getCollection("projects")).sort((a, b) =>
+  a.id.localeCompare(b.id),
+);
+const num = (i: number) => String(i + 1).padStart(2, "0");
+---
+
+<section id="proyectos" class="section">
+  <div class="container">
+    <header class="head">
+      <p class="label label--accent">[01] Proyectos</p>
+      <h2>Archivo de proyectos</h2>
+    </header>
+
+    <div class="projects" data-projects>
+      <div class="details">
+        {
+          projects.map((p, i) => {
+            const t = p.data[lang];
+            return (
+              <article
+                class="detail"
+                id={`detail-${i}`}
+                tabindex="-1"
+                hidden={i !== 0}
+              >
+                <div class="detail__main">
+                  <p class="label label--accent">
+                    [{num(i)}] {t.kind}
+                  </p>
+                  <h3>{t.title}</h3>
+                  <p>{t.desc}</p>
+                  <p class="chips">
+                    {p.data.stack.map((s) => (
+                      <span class="chip">{s}</span>
+                    ))}
+                  </p>
+                  <div class="detail__actions">
+                    <a class="btn btn--primary" href={p.data.demo}>
+                      Ver demo ↗
+                    </a>
+                    <a class="btn" href={p.data.code}>
+                      Código ↗
+                    </a>
+                  </div>
+                </div>
+                <dl class="meta">
+                  <div>
+                    <>
+                      <dt>Año</dt>
+                      <dd>{p.data.year}</dd>
+                    </>
+                  </div>
+                  <div>
+                    <>
+                      <dt>Rol</dt>
+                      <dd>{t.role}</dd>
+                    </>
+                  </div>
+                  <div>
+                    <>
+                      <dt>Estado</dt>
+                      <dd>{t.status}</dd>
+                    </>
+                  </div>
+                  <div>
+                    <>
+                      <dt>Stack</dt>
+                      <dd>{p.data.stack.join(" · ")}</dd>
+                    </>
+                  </div>
+                </dl>
+              </article>
+            );
+          })
+        }
+      </div>
+
+      <div class="folders" style={`--n:${projects.length}`}>
+        {
+          projects.map((p, i) => (
+            <button
+              class="folder"
+              type="button"
+              style={`--i:${i};z-index:${i + 1}`}
+              data-index={`[${num(i)}]`}
+              aria-pressed={i === 0 ? "true" : "false"}
+              aria-controls={`detail-${i}`}
+            >
+              <span class="folder__sheet" aria-hidden="true" />
+              <span class="folder__body">
+                <span class="folder__top">
+                  <>
+                    <span class="folder__title">{p.data[lang].title}</span>
+                    <span class="label">{p.data.year}</span>
+                  </>
+                </span>
+                <span class="label">{p.data[lang].kind}</span>
+                <span class="label folder__stack">
+                  {p.data.stack.join(" · ")}
+                </span>
+              </span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="all">
+      <p class="label">¿Quieres ver más?</p>
+      <a
+        class="btn btn--primary"
+        href="https://github.com/IbrahimAlmeyda"
+        target="_blank"
+        rel="noopener">Ver todos mis proyectos en GitHub ↗</a
+      >
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector("[data-projects]");
+  const folders = root?.querySelectorAll<HTMLButtonElement>(".folder") ?? [];
+  const panels = root?.querySelectorAll<HTMLElement>(".detail") ?? [];
+
+  folders.forEach((btn, i) => {
+    btn.addEventListener("click", () => {
+      folders.forEach((b, j) =>
+        b.setAttribute("aria-pressed", String(i === j)),
+      );
+      panels.forEach((p, j) => {
+        p.hidden = i !== j;
+      });
+      // En móvil el panel queda debajo: llévale el foco para que se vea
+      if (matchMedia("(max-width: 52rem)").matches) panels[i].focus();
+    });
+  });
+</script>
+
+<style>
+  .section {
+    padding-block: var(--space-7);
+  }
+  .head {
+    display: grid;
+    gap: var(--space-3);
+    margin-bottom: var(--space-7);
+  }
+  .projects {
+    display: grid;
+    gap: var(--space-7);
+    align-items: start;
+  }
+  .folders {
+    order: -1;
+  }
+  @media (min-width: 62.01rem) {
+    .projects {
+      grid-template-columns: 1.15fr 1fr;
+      gap: var(--space-8);
+    }
+    .folders {
+      order: 0;
+    }
+  }
+
+  /* Panel de descripción */
+  .detail {
+    display: grid;
+    gap: var(--space-6);
+    padding: var(--space-6);
+    border: var(--border-w) solid var(--color-ink);
+    background: var(--color-bg);
+    outline: none;
+  }
+  .detail:not([hidden]) {
+    animation: swap var(--dur) var(--ease);
+  }
+  @keyframes swap {
+    from {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+  }
+  .detail__main {
+    display: grid;
+    gap: var(--space-4);
+    align-content: start;
+  }
+  .detail__main p {
+    margin: 0;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .detail__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  .meta {
+    margin: 0;
+    border: var(--border-w) solid var(--color-line);
+  }
+  .meta > div {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-top: var(--border-w) solid var(--color-line);
+  }
+  .meta > div:first-child {
+    border-top: 0;
+  }
+  .meta dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-mono);
+    color: var(--color-ink-3);
+  }
+  .meta dd {
+    margin: 0;
+    color: var(--color-ink);
+  }
+
+  /* Carpetas en diagonal */
+  .folders {
+    --dx: clamp(1.1rem, 3.4vw, 2.4rem);
+    --dy: 6.4rem;
+    --fh: 13rem;
+    --pad: 1.25rem;
+    position: relative;
+    height: calc((var(--n) - 1) * var(--dy) + var(--fh) + 4.25rem);
+    border: var(--border-w) dashed var(--color-line);
+  }
+  .folder {
+    position: absolute;
+    height: var(--fh);
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    left: calc(var(--pad) + var(--i) * var(--dx));
+    top: calc(2.25rem + var(--i) * var(--dy));
+    width: calc(100% - 2 * var(--pad) - (var(--n) - 1) * var(--dx));
+    transition: transform var(--dur) var(--ease);
+  }
+  .folder::before {
+    content: attr(data-index);
+    position: absolute;
+    z-index: 3;
+    top: -1.5rem;
+    left: 0;
+    width: 5.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    padding-left: var(--space-3);
+    background: var(--color-surface);
+    border: var(--border-w) solid var(--color-line);
+    border-bottom: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-mono);
+    color: var(--color-ink-3);
+    transition:
+      background var(--dur-fast),
+      color var(--dur-fast),
+      border-color var(--dur-fast);
+  }
+  .folder__sheet {
+    position: absolute;
+    z-index: 1;
+    left: var(--space-3);
+    right: var(--space-3);
+    top: -0.15rem;
+    height: 80%;
+    background: var(--color-bg)
+      repeating-linear-gradient(
+        transparent 0 0.9rem,
+        var(--grid-line) 0.9rem calc(0.9rem + 1px)
+      );
+    border: var(--border-w) solid var(--color-line);
+    transition: transform var(--dur) var(--ease);
+  }
+  .folder__body {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 1rem var(--space-4);
+    background: var(--color-surface);
+    border: var(--border-w) solid var(--color-line);
+    transition: border-color var(--dur-fast);
+  }
+  .folder__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+  .folder__title {
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    color: var(--color-ink);
+    font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+    line-height: 1.1;
+  }
+  .folder__stack {
+    margin-top: auto;
+  }
+
+  /* Hover y seleccionada: se levantan hacia arriba y a la izquierda */
+  .folder:hover,
+  .folder:focus-visible {
+    transform: translate(-0.5rem, -0.75rem);
+  }
+  .folder:hover .folder__sheet,
+  .folder:focus-visible .folder__sheet {
+    transform: translateY(-0.7rem);
+  }
+  .folder:hover .folder__body,
+  .folder:focus-visible .folder__body {
+    border-color: var(--color-ink);
+  }
+  .folder[aria-pressed="true"] {
+    transform: translate(-0.9rem, -1.1rem);
+  }
+  .folder[aria-pressed="true"] .folder__sheet {
+    transform: translateY(-1rem);
+  }
+  .folder[aria-pressed="true"]::before {
+    background: var(--color-ink);
+    color: var(--color-bg);
+    border-color: var(--color-ink);
+  }
+  .folder[aria-pressed="true"] .folder__title {
+    color: var(--color-accent);
+  }
+  .folder[aria-pressed="true"] .folder__body {
+    border-color: var(--color-ink);
+    box-shadow: 0.5rem 0.6rem 0 0
+      color-mix(in srgb, var(--color-ink) 9%, transparent);
+  }
+
+  .all {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-5);
+    margin-top: var(--space-7);
+    padding-top: var(--space-5);
+    border-top: var(--border-w) solid var(--color-line);
+  }
+  .all .label {
+    margin: 0;
+  }
+  @media (max-width: 40rem) {
+    .folders {
+      --dy: 5.7rem;
+      --fh: 12rem;
+    }
+  }
+</style>

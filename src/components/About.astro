@@ -1,0 +1,212 @@
+---
+import CatIcon from "../components/CatIcon.astro";
+
+const hard = [
+  {
+    group: "Frontend",
+    items: ["HTML", "CSS", "JavaScript", "TypeScript", "Astro", "React"],
+  },
+  { group: "Backend", items: ["Node.js", "Express", "APIs REST"] },
+  { group: "Datos", items: ["PostgreSQL", "Neon"] },
+  {
+    group: "Herramientas",
+    items: ["Linux / WSL", "Git", "GitHub", "Docker", "Jira", "Claude Code"],
+  },
+];
+const soft = [
+  {
+    t: "Traducir necesidades",
+    d: "Convierto lo que pide un área no técnica en requisitos claros.",
+  },
+  {
+    t: "Autonomía",
+    d: "Defino el problema, propongo una solución y la llevo hasta producción.",
+  },
+  {
+    t: "Aprendizaje continuo",
+    d: "Incorporo herramientas nuevas rápido, también de IA.",
+  },
+  {
+    t: "Orden y documentación",
+    d: "Código y decisiones que otra persona puede entender.",
+  },
+];
+const facts = [
+  { k: "Ubicación", v: "Chincha, Perú", cat: true },
+  { k: "Idiomas", v: "Español (nativo) · Inglés (B1)" },
+  { k: "Disponibilidad", v: "Empleo fijo y proyectos freelance" },
+];
+---
+
+<section id="sobre-mi" class="section alt">
+  <div class="container about">
+    <div class="intro">
+      <p class="label label--accent">[02] Sobre mí</p>
+      <h2>Quién está detrás del código</h2>
+      <p>
+        Soy desarrollador full stack y construyo aplicaciones web de punta a
+        punta: desde la base de datos y la API hasta una interfaz clara y fácil
+        de usar. Trabajo con JavaScript, Node y React, y me gusta entender el
+        problema de fondo antes de escribir la primera línea de código.
+      </p>
+      <p>
+        Mi meta es dedicarme al desarrollo web fullstack profesional y crecer
+        hacia la ingeniería de IA, apoyándome en el desarrollo con agentes.
+      </p>
+      <dl class="facts">
+        {
+          facts.map((f) => (
+            <div>
+              <>
+                <dt>{f.k}</dt>
+                <dd>
+                  <span class="loc">
+                    {f.v}
+                    {f.cat && <CatIcon />}
+                  </span>
+                </dd>
+              </>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <div class="skills">
+      <div>
+        <h3>Hard skills</h3>
+        {
+          hard.map((g) => (
+            <div class="group">
+              <p class="label">{g.group}</p>
+              <p class="chips">
+                {g.items.map((i) => (
+                  <span class="chip">{i}</span>
+                ))}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+      <div>
+        <h3>Soft skills</h3>
+        <ol class="soft">
+          {
+            soft.map((s, i) => (
+              <li>
+                <>
+                  <span class="label">[0{i + 1}]</span>
+                  <div>
+                    <>
+                      <strong>{s.t}</strong>
+                      <p>{s.d}</p>
+                    </>
+                  </div>
+                </>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    padding-block: var(--space-7);
+  }
+  .alt {
+    background: var(--color-surface);
+    border-block: var(--border-w) solid var(--color-line);
+  }
+  .about {
+    display: grid;
+    gap: var(--space-8);
+  }
+  @media (min-width: 62.01rem) {
+    .about {
+      grid-template-columns: 1fr 1.2fr;
+    }
+  }
+  .intro {
+    display: grid;
+    gap: var(--space-4);
+    align-content: start;
+  }
+  .intro p {
+    margin: 0;
+    max-width: 34rem;
+  }
+  .facts {
+    margin: var(--space-3) 0 0;
+    border-top: var(--border-w) solid var(--color-line);
+  }
+  .facts > div {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: var(--space-3);
+    padding: var(--space-3) 0;
+    border-bottom: var(--border-w) solid var(--color-line);
+  }
+  dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-mono);
+    color: var(--color-ink-3);
+  }
+  dd {
+    margin: 0;
+    color: var(--color-ink);
+  }
+  .loc {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .skills {
+    display: grid;
+    gap: var(--space-7);
+  }
+  h3 {
+    margin-bottom: var(--space-5);
+    padding-bottom: var(--space-3);
+    border-bottom: var(--border-w) solid var(--color-ink);
+  }
+  .group {
+    display: grid;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+  }
+  .group .label {
+    margin: 0;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+  }
+  .soft {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-5);
+  }
+  .soft li {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: var(--space-3);
+  }
+  .soft strong {
+    color: var(--color-ink);
+    font-weight: var(--weight-semibold);
+  }
+  .soft p {
+    margin: var(--space-1) 0 0;
+    color: var(--color-ink-3);
+    font-size: var(--text-sm);
+  }
+</style>
