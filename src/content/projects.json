@@ -1,0 +1,102 @@
+[
+    {
+        "id": "01-tienda-online",
+        "year": "2026",
+        "stack": [
+            "React",
+            "Node.js",
+            "PostgreSQL"
+        ],
+        "demo": "#",
+        "code": "#",
+        "es": {
+            "title": "Tienda Online",
+            "kind": "E-commerce",
+            "role": "Full Stack",
+            "status": "En desarrollo",
+            "desc": "Tienda en línea con catálogo, carrito y panel de administración."
+        },
+        "en": {
+            "title": "Online Store",
+            "kind": "E-commerce",
+            "role": "Full Stack",
+            "status": "In development",
+            "desc": "Online store with catalog, cart and admin panel."
+        }
+    },
+    {
+        "id": "02-panel-presupuestos",
+        "year": "2026",
+        "stack": [
+            "React",
+            "Node.js",
+            "Neon"
+        ],
+        "demo": "#",
+        "code": "#",
+        "es": {
+            "title": "Panel de Presupuestos",
+            "kind": "Dashboard interno",
+            "role": "Full Stack",
+            "status": "En uso",
+            "desc": "Presupuestos migrados de Excel a una aplicación web con indicadores y filtros."
+        },
+        "en": {
+            "title": "Budget Dashboard",
+            "kind": "Internal dashboard",
+            "role": "Full Stack",
+            "status": "In use",
+            "desc": "Budgets moved from Excel to a web application with KPIs and filters."
+        }
+    },
+    {
+        "id": "03-control-riego",
+        "year": "2026",
+        "stack": [
+            "Node.js",
+            "Sensors",
+            "PostgreSQL"
+        ],
+        "demo": "#",
+        "code": "#",
+        "es": {
+            "title": "Control de Riego",
+            "kind": "IoT / Automatización",
+            "role": "Diseño y desarrollo",
+            "status": "En diseño",
+            "desc": "Sistema para automatizar el riego de campos y monitorear su estado."
+        },
+        "en": {
+            "title": "Irrigation Control",
+            "kind": "IoT / Automation",
+            "role": "Design and development",
+            "status": "In design",
+            "desc": "System to automate field irrigation and monitor its status."
+        }
+    },
+    {
+        "id": "04-proyecto-cuatro",
+        "year": "2026",
+        "stack": [
+            "Node.js",
+            "REST",
+            "Git"
+        ],
+        "demo": "#",
+        "code": "#",
+        "es": {
+            "title": "Proyecto Cuatro",
+            "kind": "API REST",
+            "role": "Backend",
+            "status": "Ejemplo",
+            "desc": "Espacio para otro proyecto: una API, una herramienta o un experimento."
+        },
+        "en": {
+            "title": "Project Four",
+            "kind": "REST API",
+            "role": "Backend",
+            "status": "Sample",
+            "desc": "Space for another project: an API, a tool or an experiment."
+        }
+    }
+]
