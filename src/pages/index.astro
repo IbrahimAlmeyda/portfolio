@@ -1,18 +1,14 @@
 ﻿---
+import About from "../components/About.astro";
+import Contact from "../components/Contact.astro";
+import Hero from "../components/Hero.astro";
+import Projects from "../components/Projects.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Ibrahim Almeyda — Desarrollador Full Stack">
-  <section id="inicio" style="min-height:80vh">
-    <div class="container"><h1>Inicio</h1></div>
-  </section>
-  <section id="proyectos" style="min-height:80vh">
-    <div class="container"><h2>Proyectos</h2></div>
-  </section>
-  <section id="sobre-mi" style="min-height:80vh">
-    <div class="container"><h2>Sobre mí</h2></div>
-  </section>
-  <section id="contacto" style="min-height:80vh">
-    <div class="container"><h2>Contacto</h2></div>
-  </section>
+  <Hero />
+  <Projects />
+  <About />
+  <Contact />
 </Layout>
