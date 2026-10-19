@@ -1,0 +1,71 @@
+---
+import LogoMark from "./LogoMark.astro";
+const links = [
+  { href: "#proyectos", n: "[01]", label: "Proyectos" },
+  { href: "#sobre-mi", n: "[02]", label: "Sobre mi" },
+  { href: "#contacto", n: "[03]", label: "Contacto" },
+];
+---
+
+<header class="site-header">
+  <div class="container bar">
+    <a class="brand" href="#inicio" aria-label="Ibrahim Almeyda">
+      <LogoMark />
+      <span>Ibrahim Almeyda</span>
+    </a>
+    <nav aria-label="Principal">
+      {
+        links.map((l) => (
+          <a href={l.href}>
+            <span class="n">{l.n}</span> {l.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: 3.5rem;
+    background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: var(--border-w) solid var(--color-line);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+    color: var(--color-ink);
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+  }
+  nav {
+    display: flex;
+    gap: var(--space-5);
+  }
+  nav a {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-mono);
+    text-decoration: none;
+    color: var(--color-ink-2);
+  }
+  nav a:hover {
+    color: var(--color-accent);
+  }
+  .n {
+    color: var(--color-ink-3);
+  }
+</style>

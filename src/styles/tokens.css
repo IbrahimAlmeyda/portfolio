@@ -1,0 +1,97 @@
+:root {
+  /* ---------- Color: marca ---------- */
+  --color-accent: #3d3bf3;          /* ÚNICO acento. Cámbialo a tu gusto. */
+  --color-accent-contrast: #ffffff; /* texto sobre el acento */
+
+  /* ---------- Color: neutros cálidos ---------- */
+  --color-bg: #f4f3ef;              /* fondo de página */
+  --color-surface: #ebeae5;         /* tarjetas / bloques */
+  --color-ink: #1f1f1e;             /* texto principal (contraste ~15:1) */
+  --color-ink-2: #414140;           /* texto secundario */
+  --color-ink-3: #5c5c58;           /* texto atenuado (contraste ~6:1, AA) */
+  --color-line: #b3b3af;            /* bordes y cuadrícula */
+  --color-disabled: #b4b4b0;
+
+  /* ---------- Tipografía ---------- */
+  --font-display: "Geist", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Geist", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Escala fluida (min, preferido, max) */
+  --text-xs: clamp(0.72rem, 0.70rem + 0.10vw, 0.78rem);   /* etiquetas mono */
+  --text-sm: clamp(0.85rem, 0.82rem + 0.15vw, 0.95rem);
+  --text-base: clamp(1rem, 0.96rem + 0.20vw, 1.125rem);
+  --text-lg: clamp(1.15rem, 1.05rem + 0.50vw, 1.4rem);
+  --text-h3: clamp(1.4rem, 1.2rem + 1vw, 2rem);
+  --text-h2: clamp(1.9rem, 1.4rem + 2.5vw, 3.4rem);
+  --text-h1: clamp(2.4rem, 1.5rem + 4.5vw, 5.5rem);
+
+  --leading-tight: 1;        /* titulares en mayúsculas */
+  --leading-snug: 1.2;
+  --leading-body: 1.55;
+
+  --tracking-display: -0.02em;  /* titulares */
+  --tracking-body: -0.01em;
+  --tracking-mono: 0.06em;      /* etiquetas en mayúsculas */
+
+  /* ---------- Espaciado (base 4px) ---------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 7rem;
+
+  --container: 76rem;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+
+  /* ---------- Forma ---------- */
+  --border-w: max(1px, 0.0625rem);
+  --radius: 0;                  /* estética plana */
+  --radius-pill: 999px;         /* solo para chips de tecnología */
+  --shadow: none;
+
+  /* ---------- Movimiento ---------- */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur: 300ms;
+  --dur-slow: 700ms;
+
+  /* ---------- Cuadrícula decorativa (sin imágenes externas) ---------- */
+  --grid-size: 4rem;
+  --grid-line: color-mix(in srgb, var(--color-line) 35%, transparent);
+}
+
+/* Modo oscuro automático */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #141413;
+    --color-surface: #1d1d1b;
+    --color-ink: #f1f0ec;
+    --color-ink-2: #cfcec9;
+    --color-ink-3: #9a9994;
+    --color-line: #3a3a37;
+    --color-disabled: #5a5a56;
+    --color-accent: #7c7bff;          /* acento más claro para contraste en oscuro */
+    --color-accent-contrast: #141413;
+  }
+}
+:root[data-theme="dark"] {
+  --color-bg: #141413;
+  --color-surface: #1d1d1b;
+  --color-ink: #f1f0ec;
+  --color-ink-2: #cfcec9;
+  --color-ink-3: #9a9994;
+  --color-line: #3a3a37;
+  --color-disabled: #5a5a56;
+  --color-accent: #7c7bff;
+  --color-accent-contrast: #141413;
+}
