@@ -1,27 +1,77 @@
 ---
 import LogoMark from "./LogoMark.astro";
+import { useTranslations, defaultLang, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+
 const links = [
-  { href: "#proyectos", n: "[01]", label: "Proyectos" },
-  { href: "#sobre-mi", n: "[02]", label: "Sobre mi" },
-  { href: "#contacto", n: "[03]", label: "Contacto" },
+  { href: "#proyectos", n: "[01]", label: t("nav.projects") },
+  { href: "#sobre-mi", n: "[02]", label: t("nav.about") },
+  { href: "#contacto", n: "[03]", label: t("nav.contact") },
 ];
 ---
 
-<header class="site-header">
+<header
+  class="site-header"
+  data-open-label={t("nav.openMenu")}
+  data-close-label={t("nav.closeMenu")}
+>
   <div class="container bar">
     <a class="brand" href="#inicio" aria-label="Ibrahim Almeyda">
       <LogoMark />
-      <span>Ibrahim Almeyda</span>
+      <span class="brand__name">Ibrahim Almeyda</span>
     </a>
-    <nav aria-label="Principal">
+    <nav id="nav" class="nav" aria-label={t("nav.main")}>
       {
-        links.map((l) => (
-          <a href={l.href}>
+        links.map((l, i) => (
+          <a href={l.href} style={`--i:${i}`}>
             <span class="n">{l.n}</span> {l.label}
           </a>
         ))
       }
     </nav>
+    <div class="tools">
+      <div class="lang" data-lang={lang} role="group" aria-label={t("nav.language")}>
+        <a href="/" lang="es" aria-current={lang === "es" ? "true" : undefined}
+          >ES</a
+        >
+        <a href="/en/" lang="en" aria-current={lang === "en" ? "true" : undefined}
+          >EN</a
+        >
+      </div>
+      <button
+        class="icon-btn"
+        id="theme-toggle"
+        type="button"
+        aria-label={t("nav.theme")}
+      >
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"
+          ><circle
+            cx="8"
+            cy="8"
+            r="6.2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"></circle><path
+            d="M8 1.8a6.2 6.2 0 0 1 0 12.4z"
+            fill="currentColor"></path></svg
+        >
+      </button>
+      <button
+        class="icon-btn burger"
+        id="burger"
+        type="button"
+        aria-expanded="false"
+        aria-controls="nav"
+        aria-label={t("nav.openMenu")}
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -39,6 +89,7 @@ const links = [
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: var(--space-4);
     height: 100%;
   }
   .brand {
@@ -49,23 +100,383 @@ const links = [
     color: var(--color-ink);
     font-weight: var(--weight-bold);
     text-transform: uppercase;
+    font-size: var(--text-sm);
+    white-space: nowrap;
   }
-  nav {
+  .tools {
     display: flex;
-    gap: var(--space-5);
+    align-items: center;
+    gap: var(--space-2);
   }
-  nav a {
+
+  /* Enlaces de escritorio con subrayado que crece */
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    margin-left: auto;
+    margin-right: var(--space-5);
+  }
+  .nav a {
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4em;
+    padding: var(--space-2) 0;
+    text-decoration: none;
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     text-transform: uppercase;
     letter-spacing: var(--tracking-mono);
-    text-decoration: none;
     color: var(--color-ink-2);
+    transition: color var(--dur-fast) var(--ease);
   }
-  nav a:hover {
+  .nav a .n {
+    color: var(--color-ink-3);
+    transition: color var(--dur-fast);
+  }
+  .nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.1rem;
+    height: var(--border-w);
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur) var(--ease);
+  }
+  .nav a:hover,
+  .nav a:focus-visible {
+    color: var(--color-ink);
+  }
+  .nav a:hover::after,
+  .nav a:focus-visible::after,
+  .nav a[aria-current="true"]::after {
+    transform: scaleX(1);
+  }
+  .nav a:hover .n,
+  .nav a[aria-current="true"] .n {
     color: var(--color-accent);
   }
-  .n {
+  .nav a.cta {
+    padding: var(--space-2) var(--space-4);
+    border: var(--border-w) solid var(--color-accent);
+    color: var(--color-accent);
+  }
+  .nav a.cta .n {
+    color: inherit;
+  }
+  .nav a.cta::after {
+    display: none;
+  }
+  .nav a.cta:hover {
+    background: var(--color-accent);
+    color: var(--color-accent-contrast);
+  }
+  .nav__foot {
+    display: none;
+  }
+
+  /* Selector de idioma con indicador deslizante */
+  .lang {
+    position: relative;
+    display: inline-grid;
+    grid-auto-flow: column;
+    border: var(--border-w) solid var(--color-line);
+  }
+  .lang::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 50%;
+    background: var(--color-ink);
+    transition: transform var(--dur) var(--ease);
+  }
+  .lang[data-lang="en"]::before {
+    transform: translateX(100%);
+  }
+  .lang a,
+  .lang span {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    min-width: 2.4rem;
+    height: 2.25rem;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-mono);
     color: var(--color-ink-3);
   }
+  .lang a:hover {
+    color: var(--color-ink);
+  }
+  .lang a[aria-current="true"] {
+    color: var(--color-bg);
+  }
+  .lang span[aria-disabled="true"] {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  /* Botones de icono */
+  .icon-btn {
+    display: inline-grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    border: var(--border-w) solid var(--color-line);
+    background: none;
+    color: var(--color-ink-2);
+    cursor: pointer;
+    transition:
+      border-color var(--dur-fast),
+      color var(--dur-fast);
+  }
+  .icon-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+  .burger {
+    display: none;
+    position: relative;
+  }
+  .burger span {
+    position: absolute;
+    left: 0.6rem;
+    right: 0.6rem;
+    height: 2px;
+    background: currentColor;
+    transition:
+      transform var(--dur) var(--ease),
+      opacity var(--dur-fast),
+      top var(--dur) var(--ease);
+  }
+  .burger span:nth-child(1) {
+    top: 0.72rem;
+  }
+  .burger span:nth-child(2) {
+    top: 1.05rem;
+  }
+  .burger span:nth-child(3) {
+    top: 1.38rem;
+  }
+  .is-open .burger {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+  .is-open .burger span:nth-child(1) {
+    top: 1.05rem;
+    transform: rotate(45deg);
+  }
+  .is-open .burger span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .is-open .burger span:nth-child(3) {
+    top: 1.05rem;
+    transform: rotate(-45deg);
+  }
+  :global(html.menu-open) {
+    overflow: hidden;
+  }
+
+  @media (max-width: 34rem) {
+    .brand__name {
+      display: none;
+    }
+  }
+
+  /* Móvil y tablet: panel desplegable */
+  @media (max-width: 52rem) {
+    .burger {
+      display: inline-grid;
+    }
+    .site-header.is-open {
+      background: var(--color-bg);
+    }
+    .nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      margin: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      height: calc(100dvh - 3.5rem);
+      overflow-y: auto;
+      padding: var(--space-5) var(--gutter) var(--space-6);
+      background: var(--color-bg);
+      border-top: var(--border-w) solid var(--color-line);
+      visibility: hidden;
+      clip-path: inset(0 0 100% 0);
+      transition:
+        clip-path 520ms var(--ease),
+        visibility 0s linear 520ms;
+    }
+    .is-open .nav {
+      visibility: visible;
+      clip-path: inset(0);
+      transition:
+        clip-path 520ms var(--ease),
+        visibility 0s;
+    }
+
+    .nav a {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-3);
+      padding: var(--space-4) 0;
+      border-bottom: var(--border-w) solid var(--color-line);
+      font-family: var(--font-display);
+      font-size: var(--text-h2);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-display);
+      line-height: 1;
+      color: var(--color-ink);
+      opacity: 0;
+      transform: translateY(1.25rem);
+      transition:
+        opacity 420ms var(--ease),
+        transform 420ms var(--ease),
+        color var(--dur-fast),
+        padding-left var(--dur) var(--ease);
+    }
+    .is-open .nav a {
+      opacity: 1;
+      transform: none;
+      transition-delay:
+        calc(var(--i) * 70ms + 160ms), calc(var(--i) * 70ms + 160ms), 0s, 0s;
+    }
+    .nav a .n {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      align-self: flex-start;
+      padding-top: 0.35em;
+    }
+    .nav a::after {
+      content: "→";
+      position: static;
+      margin-left: auto;
+      height: auto;
+      background: none;
+      color: var(--color-accent);
+      font-family: var(--font-mono);
+      font-size: var(--text-lg);
+      transform: translateX(-0.75rem);
+      opacity: 0;
+      transition:
+        transform var(--dur) var(--ease),
+        opacity var(--dur) var(--ease);
+    }
+    .nav a:hover,
+    .nav a:focus-visible {
+      color: var(--color-accent);
+      padding-left: var(--space-3);
+    }
+    .nav a:hover::after,
+    .nav a:focus-visible::after,
+    .nav a[aria-current="true"]::after {
+      transform: none;
+      opacity: 1;
+    }
+    .nav a.cta {
+      border: 0;
+      border-bottom: var(--border-w) solid var(--color-line);
+      padding: var(--space-4) 0;
+      color: var(--color-ink);
+    }
+    .nav a.cta::after {
+      display: block;
+    }
+    .nav a.cta:hover {
+      background: none;
+      color: var(--color-accent);
+      padding-left: var(--space-3);
+    }
+    .nav__foot {
+      display: block;
+      margin-top: auto;
+      padding-top: var(--space-6);
+      opacity: 0;
+      transition: opacity 400ms var(--ease);
+    }
+    .is-open .nav__foot {
+      opacity: 1;
+      transition-delay: 450ms;
+    }
+  }
 </style>
+
+<script>
+  const header = document.querySelector<HTMLElement>(".site-header")!;
+  const burger = document.getElementById("burger")!;
+  const nav = document.getElementById("nav");
+  const root = document.documentElement;
+
+  function setMenu(open: boolean) {
+    header.classList.toggle("is-open", open);
+    root.classList.toggle("menu-open", open);
+    burger.setAttribute("aria-expanded", String(open));
+    burger.setAttribute(
+      "aria-label",
+      header.dataset[open ? "closeLabel" : "openLabel"] ?? "",
+    );
+  }
+  burger.addEventListener("click", () =>
+    setMenu(!header.classList.contains("is-open")),
+  );
+  nav?.addEventListener("click", (e) => {
+    if ((e.target as HTMLElement).closest("a")) setMenu(false);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && header.classList.contains("is-open")) {
+      setMenu(false);
+      burger.focus();
+    }
+  });
+  matchMedia("(min-width: 52.01rem)").addEventListener("change", (e) => {
+    if (e.matches) setMenu(false);
+  });
+
+  // Tema claro / oscuro
+  document.getElementById("theme-toggle")!.addEventListener("click", () => {
+    const dark =
+      root.dataset.theme === "dark" ||
+      (!root.dataset.theme &&
+        matchMedia("(prefers-color-scheme: dark)").matches);
+    const next = dark ? "light" : "dark";
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem("theme", next);
+    } catch {}
+  });
+
+  // Resalta en el menú la sección que estás viendo
+  const links = [
+    ...document.querySelectorAll<HTMLAnchorElement>(".nav a[href^='#']"),
+  ];
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        links.forEach((a) =>
+          a.setAttribute(
+            "aria-current",
+            String(a.getAttribute("href") === `#${en.target.id}`),
+          ),
+        );
+      });
+    },
+    { rootMargin: "-45% 0px -50% 0px" },
+  );
+  ["proyectos", "sobre-mi", "contacto"].forEach((id) => {
+    const s = document.getElementById(id);
+    if (s) io.observe(s);
+  });
+</script>

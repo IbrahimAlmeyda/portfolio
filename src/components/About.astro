@@ -1,58 +1,46 @@
 ---
 import CatIcon from "../components/CatIcon.astro";
+import { useTranslations, defaultLang, type Lang, type UIKey } from "../i18n/ui";
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
 
 const hard = [
   {
-    group: "Frontend",
+    group: t("about.hard.frontend"),
     items: ["HTML", "CSS", "JavaScript", "TypeScript", "Astro", "React"],
   },
-  { group: "Backend", items: ["Node.js", "Express", "APIs REST"] },
-  { group: "Datos", items: ["PostgreSQL", "Neon"] },
   {
-    group: "Herramientas",
+    group: t("about.hard.backend"),
+    items: ["Node.js", "Express", t("about.hard.backend.rest")],
+  },
+  { group: t("about.hard.data"), items: ["PostgreSQL", "Neon"] },
+  {
+    group: t("about.hard.tools"),
     items: ["Linux / WSL", "Git", "GitHub", "Docker", "Jira", "Claude Code"],
   },
 ];
-const soft = [
-  {
-    t: "Traducir necesidades",
-    d: "Convierto lo que pide un área no técnica en requisitos claros.",
-  },
-  {
-    t: "Autonomía",
-    d: "Defino el problema, propongo una solución y la llevo hasta producción.",
-  },
-  {
-    t: "Aprendizaje continuo",
-    d: "Incorporo herramientas nuevas rápido, también de IA.",
-  },
-  {
-    t: "Orden y documentación",
-    d: "Código y decisiones que otra persona puede entender.",
-  },
-];
+const soft = [1, 2, 3, 4].map((n) => ({
+  t: t(`about.soft${n}.t` as UIKey),
+  d: t(`about.soft${n}.d` as UIKey),
+}));
 const facts = [
-  { k: "Ubicación", v: "Chincha, Perú", cat: true },
-  { k: "Idiomas", v: "Español (nativo) · Inglés (B1)" },
-  { k: "Disponibilidad", v: "Empleo fijo y proyectos freelance" },
+  { k: t("about.fact.loc"), v: t("about.fact.locv"), cat: true },
+  { k: t("about.fact.lang"), v: t("about.fact.langv") },
+  { k: t("about.fact.avail"), v: t("about.fact.availv") },
 ];
 ---
 
 <section id="sobre-mi" class="section alt">
   <div class="container about">
     <div class="intro">
-      <p class="label label--accent">[02] Sobre mí</p>
-      <h2>Quién está detrás del código</h2>
-      <p>
-        Soy desarrollador full stack y construyo aplicaciones web de punta a
-        punta: desde la base de datos y la API hasta una interfaz clara y fácil
-        de usar. Trabajo con JavaScript, Node y React, y me gusta entender el
-        problema de fondo antes de escribir la primera línea de código.
-      </p>
-      <p>
-        Mi meta es dedicarme al desarrollo web fullstack profesional y crecer
-        hacia la ingeniería de IA, apoyándome en el desarrollo con agentes.
-      </p>
+      <p class="label label--accent">{t("about.label")}</p>
+      <h2>{t("about.title")}</h2>
+      <p>{t("about.p1")}</p>
+      <p>{t("about.p2")}</p>
       <dl class="facts">
         {
           facts.map((f) => (
@@ -74,7 +62,7 @@ const facts = [
 
     <div class="skills">
       <div>
-        <h3>Hard skills</h3>
+        <h3>{t("about.hard")}</h3>
         {
           hard.map((g) => (
             <div class="group">
@@ -89,7 +77,7 @@ const facts = [
         }
       </div>
       <div>
-        <h3>Soft skills</h3>
+        <h3>{t("about.soft")}</h3>
         <ol class="soft">
           {
             soft.map((s, i) => (

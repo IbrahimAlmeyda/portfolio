@@ -1,20 +1,33 @@
 ---
+import { useTranslations, defaultLang, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+
 const email = "almeydaibrahim@gmail.com";
 ---
 
 <section id="contacto" class="section grid-bg crop-marks">
   <div class="container inner">
-    <p class="label label--accent">[03] Contacto</p>
-    <h2>¿Tienes algo en mente? Hablemos</h2>
+    <p class="label label--accent">{t("contact.label")}</p>
+    <h2>{t("contact.title")}</h2>
     <p class="lead">
-      Cuéntame qué necesitas y te respondo con una propuesta de cómo lo
-      construiría.
+      {t("contact.lead")}
     </p>
     <p class="mail" id="mail">{email}</p>
     <div class="links">
-      <a class="btn btn--primary" href={`mailto:${email}`}>Escribir un correo</a
+      <a class="btn btn--primary" href={`mailto:${email}`}>{t("contact.write")}</a
       >
-      <button class="btn" id="copy-mail" type="button">Copiar correo</button>
+      <button
+        class="btn"
+        id="copy-mail"
+        type="button"
+        data-copied={t("contact.copied")}
+        data-fail={t("contact.copyFail")}>{t("contact.copy")}</button
+      >
       <a
         class="btn"
         target="_blank"
@@ -38,9 +51,9 @@ const email = "almeydaibrahim@gmail.com";
     const original = btn.textContent;
     try {
       await navigator.clipboard.writeText(mail?.textContent ?? "");
-      btn.textContent = "Copiado ✓";
+      btn.textContent = btn.dataset.copied ?? "";
     } catch {
-      btn.textContent = "Selecciona y copia";
+      btn.textContent = btn.dataset.fail ?? "";
     }
     setTimeout(() => (btn.textContent = original), 2000);
   });

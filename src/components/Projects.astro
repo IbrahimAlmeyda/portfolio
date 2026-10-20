@@ -1,7 +1,13 @@
 ---
 import { getCollection } from "astro:content";
+import { useTranslations, defaultLang, type Lang } from "../i18n/ui";
 
-const lang = "es";
+interface Props {
+  lang?: Lang;
+}
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+
 const projects = (await getCollection("projects")).sort((a, b) =>
   a.id.localeCompare(b.id),
 );
@@ -11,15 +17,15 @@ const num = (i: number) => String(i + 1).padStart(2, "0");
 <section id="proyectos" class="section">
   <div class="container">
     <header class="head">
-      <p class="label label--accent">[01] Proyectos</p>
-      <h2>Archivo de proyectos</h2>
+      <p class="label label--accent">{t("proj.label")}</p>
+      <h2>{t("proj.title")}</h2>
     </header>
 
     <div class="projects" data-projects>
       <div class="details">
         {
           projects.map((p, i) => {
-            const t = p.data[lang];
+            const tr = p.data[lang];
             return (
               <article
                 class="detail"
@@ -29,10 +35,10 @@ const num = (i: number) => String(i + 1).padStart(2, "0");
               >
                 <div class="detail__main">
                   <p class="label label--accent">
-                    [{num(i)}] {t.kind}
+                    [{num(i)}] {tr.kind}
                   </p>
-                  <h3>{t.title}</h3>
-                  <p>{t.desc}</p>
+                  <h3>{tr.title}</h3>
+                  <p>{tr.desc}</p>
                   <p class="chips">
                     {p.data.stack.map((s) => (
                       <span class="chip">{s}</span>
@@ -40,35 +46,35 @@ const num = (i: number) => String(i + 1).padStart(2, "0");
                   </p>
                   <div class="detail__actions">
                     <a class="btn btn--primary" href={p.data.demo}>
-                      Ver demo ↗
+                      {t("proj.demo")}
                     </a>
                     <a class="btn" href={p.data.code}>
-                      Código ↗
+                      {t("proj.code")}
                     </a>
                   </div>
                 </div>
                 <dl class="meta">
                   <div>
                     <>
-                      <dt>Año</dt>
+                      <dt>{t("proj.year")}</dt>
                       <dd>{p.data.year}</dd>
                     </>
                   </div>
                   <div>
                     <>
-                      <dt>Rol</dt>
-                      <dd>{t.role}</dd>
+                      <dt>{t("proj.role")}</dt>
+                      <dd>{tr.role}</dd>
                     </>
                   </div>
                   <div>
                     <>
-                      <dt>Estado</dt>
-                      <dd>{t.status}</dd>
+                      <dt>{t("proj.status")}</dt>
+                      <dd>{tr.status}</dd>
                     </>
                   </div>
                   <div>
                     <>
-                      <dt>Stack</dt>
+                      <dt>{t("proj.stack")}</dt>
                       <dd>{p.data.stack.join(" · ")}</dd>
                     </>
                   </div>
@@ -110,12 +116,12 @@ const num = (i: number) => String(i + 1).padStart(2, "0");
     </div>
 
     <div class="all">
-      <p class="label">¿Quieres ver más?</p>
+      <p class="label">{t("proj.more")}</p>
       <a
         class="btn btn--primary"
         href="https://github.com/IbrahimAlmeyda"
         target="_blank"
-        rel="noopener">Ver todos mis proyectos en GitHub ↗</a
+        rel="noopener">{t("proj.github")}</a
       >
     </div>
   </div>

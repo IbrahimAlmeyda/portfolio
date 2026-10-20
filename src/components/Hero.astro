@@ -1,8 +1,15 @@
 ---
 import CatIcon from "../components/CatIcon.astro";
 import HeroArt from "../components/HeroArt.astro";
+import { useTranslations, defaultLang, type Lang } from "../i18n/ui";
 
-const words = "Construyo software que se usa de verdad".split(" ");
+interface Props {
+  lang?: Lang;
+}
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+
+const words = t("hero.h1").split(" ");
 ---
 
 <section id="inicio" class="hero grid-bg crop-marks">
@@ -10,7 +17,7 @@ const words = "Construyo software que se usa de verdad".split(" ");
   <div class="sweep" aria-hidden="true"></div>
   <div class="container inner">
     <div class="copy">
-      <p class="label lable--accent">[0][0] Desarrollador Full Stack</p>
+      <p class="label lable--accent">{t("hero.role")}</p>
       <h1 aria-label={words.join(" ")}>
         {
           words.map((w, i) => (
@@ -23,33 +30,32 @@ const words = "Construyo software que se usa de verdad".split(" ");
         }
       </h1>
       <p class="lead">
-        Aplicaciones web con React, Node y PostgreSQL. Convierto procesos
-        manuales en herramientas que la gente usa todos los días.
+        {t("hero.lead")}
       </p>
       <div class="actions">
-        <a class="btn btn--primary" href="#proyectos">Ver proyectos ↓</a>
-        <a class="btn" href="#contacto">Contacto</a>
+        <a class="btn btn--primary" href="#proyectos">{t("hero.cta1")}</a>
+        <a class="btn" href="#contacto">{t("hero.cta2")}</a>
       </div>
     </div>
 
     <div class="art-slot"><HeroArt /></div>
 
-    <aside class="spec" aria-label="Resumen">
+    <aside class="spec" aria-label={t("spec.aria")}>
       <div class="spec__head">
-        <span>FICHA</span><span>PORTAFOLIO 2026</span>
+        <span>{t("spec.head")}</span><span>{t("hero.badge")}</span>
       </div>
       <dl class="spec__list">
-        <div><dt>Nombre</dt><dd>Ibrahim Almeyda</dd></div>
-        <div><dt>Rol</dt><dd>Full Stack Developer</dd></div>
+        <div><dt>{t("spec.name")}</dt><dd>Ibrahim Almeyda</dd></div>
+        <div><dt>{t("spec.role")}</dt><dd>{t("spec.rolev")}</dd></div>
         <div>
-          <dt>Ubicación</dt><dd>
-            <span class="loc">Chincha, Perú <CatIcon /></span>
+          <dt>{t("spec.loc")}</dt><dd>
+            <span class="loc">{t("spec.locv")} <CatIcon /></span>
           </dd>
         </div>
-        <div><dt>Stack</dt><dd>React · Node · PostgreSQL</dd></div>
+        <div><dt>{t("spec.stack")}</dt><dd>React · Node · PostgreSQL</dd></div>
         <div>
-          <dt>Estado</dt><dd>
-            <span class="status"><i></i>Trabajemos juntos</span>
+          <dt>{t("spec.status")}</dt><dd>
+            <span class="status"><i></i>{t("spec.statusv")}</span>
           </dd>
         </div>
       </dl>

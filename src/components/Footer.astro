@@ -1,6 +1,16 @@
+---
+import { useTranslations, defaultLang, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+---
+
 <footer class="container foot">
-  <span class="label">2026 Ibrahim Almeyda · Chincha, Perú</span>
-  <a class="label" href="#inicio">Volver arriba ↑</a>
+  <span class="label">{t("footer.copy")}</span>
+  <a class="label" href="#inicio">{t("footer.top")}</a>
 </footer>
 
 <style>
