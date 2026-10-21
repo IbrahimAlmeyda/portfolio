@@ -1,27 +1,27 @@
 [
     {
-        "id": "01-tienda-online",
+        "id": "01-github-profile-app",
         "year": "2026",
         "stack": [
             "React",
-            "Node.js",
-            "PostgreSQL"
+            "Typescript",
+            "Tailwind"
         ],
-        "demo": "#",
-        "code": "#",
+        "demo": "https://github-profile-app-five.vercel.app/",
+        "code": "https://github.com/IbrahimAlmeyda/github-profile-app",
         "es": {
-            "title": "Tienda Online",
-            "kind": "E-commerce",
-            "role": "Full Stack",
-            "status": "En desarrollo",
-            "desc": "Tienda en línea con catálogo, carrito y panel de administración."
+            "title": "Github Profile App",
+            "kind": "Aplicación web",
+            "role": "Frontend",
+            "status": "Terminado",
+            "desc": "Aplicación web que permite buscar y visualizar información detallada sobre cualquier usuario de GitHub."
         },
         "en": {
-            "title": "Online Store",
-            "kind": "E-commerce",
-            "role": "Full Stack",
-            "status": "In development",
-            "desc": "Online store with catalog, cart and admin panel."
+            "title": "Github Profile App",
+            "kind": "Web Application",
+            "role": "Frontend",
+            "status": "Completed",
+            "desc": "Web application to search and view detailed information about any GitHub user."
         }
     },
     {

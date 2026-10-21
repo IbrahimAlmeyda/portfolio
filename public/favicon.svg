@@ -1,16 +1,25 @@
-<svg viewBox="0 0 32 32" aria-hidden="true" class="logo">
-  <path
-    d="M3 6.5H12.2L14.2 9.5H29V28.5H3Z"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="1.6"></path>
-  <rect x="8" y="13.5" width="3" height="11" fill="currentColor"></rect>
-  <path
-    d="M14.5 24.5 19.2 13.5 23.9 24.5"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="3"
-    stroke-miterlimit="10"></path>
-  <rect x="16.9" y="19.6" width="4.6" height="2" fill="var(--color-accent)"
-  ></rect>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <style>
+    .ink { color: #111111; }
+    .accent { fill: #3d3bf3; }
+    @media (prefers-color-scheme: dark) {
+      .ink { color: #f5f5f5; }
+      .accent { fill: #7c7bff; }
+    }
+  </style>
+  <g class="ink">
+    <path
+      d="M3 6.5H12.2L14.2 9.5H29V28.5H3Z"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"></path>
+    <rect x="8" y="13.5" width="3" height="11" fill="currentColor"></rect>
+    <path
+      d="M14.5 24.5 19.2 13.5 23.9 24.5"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="3"
+      stroke-miterlimit="10"></path>
+  </g>
+  <rect class="accent" x="16.9" y="19.6" width="4.6" height="2"></rect>
 </svg>
