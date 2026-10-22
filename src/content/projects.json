@@ -25,78 +25,83 @@
         }
     },
     {
-        "id": "02-panel-presupuestos",
+        "id": "02-gif-expert-app",
         "year": "2026",
         "stack": [
             "React",
-            "Node.js",
-            "Neon"
+            "Typescript",
+            "Tailwind"
         ],
-        "demo": "#",
-        "code": "#",
+        "demo": "https://gif-expert-app-gold-psi.vercel.app/",
+        "code": "https://github.com/IbrahimAlmeyda/gif-expert-app",
         "es": {
-            "title": "Panel de Presupuestos",
-            "kind": "Dashboard interno",
-            "role": "Full Stack",
-            "status": "En uso",
-            "desc": "Presupuestos migrados de Excel a una aplicación web con indicadores y filtros."
+            "title": "Gif Expert App",
+            "kind": "Aplicación web",
+            "role": "Frontend",
+            "status": "Terminado",
+            "desc": "Aplicación web que permite buscar GIFs por categoría utilizando la API de Giphy permitiendo eliminar, recargar y compartir los GIFs."
         },
         "en": {
-            "title": "Budget Dashboard",
-            "kind": "Internal dashboard",
-            "role": "Full Stack",
-            "status": "In use",
-            "desc": "Budgets moved from Excel to a web application with KPIs and filters."
+            "title": "Gif Expert App",
+            "kind": "Web Application",
+            "role": "Frontend",
+            "status": "Completed",
+            "desc": "Web application that allows searching for GIFs by category using the Giphy API, with features to delete, reload, and share the GIFs."
         }
     },
     {
-        "id": "03-control-riego",
+        "id": "03-shopping-cart-app",
         "year": "2026",
         "stack": [
-            "Node.js",
-            "Sensors",
-            "PostgreSQL"
+            "React",
+            "Typescript",
+            "Tailwind"
         ],
-        "demo": "#",
-        "code": "#",
+        "demo": "https://shopping-cart-app-chi-drab.vercel.app/",
+        "code": "https://github.com/IbrahimAlmeyda/shopping-cart-app",
         "es": {
-            "title": "Control de Riego",
-            "kind": "IoT / Automatización",
-            "role": "Diseño y desarrollo",
-            "status": "En diseño",
-            "desc": "Sistema para automatizar el riego de campos y monitorear su estado."
+            "title": "Shopping Cart App",
+            "kind": "Aplicación web",
+            "role": "Frontend",
+            "status": "Terminado",
+            "desc": "Aplicación web que permite explorar un catálogo de productos, filtrarlos por categoría y gestionar un carrito de compras."
         },
         "en": {
-            "title": "Irrigation Control",
-            "kind": "IoT / Automation",
-            "role": "Design and development",
-            "status": "In design",
-            "desc": "System to automate field irrigation and monitor its status."
+            "title": "Shopping Cart App",
+            "kind": "Web Application",
+            "role": "Frontend",
+            "status": "Completed",
+            "desc": "Web application that allows users to explore a product catalog, filter items by category, and manage a shopping cart."
         }
     },
     {
-        "id": "04-proyecto-cuatro",
+        "id": "04-kanban-app",
         "year": "2026",
         "stack": [
+            "React",
+            "TypeScript",
+            "Tailwind",
             "Node.js",
-            "REST",
-            "Git"
+            "Express",
+            "PostgreSQL",
+            "Drizzle",
+            "Zod"
         ],
         "demo": "#",
         "code": "#",
         "es": {
-            "title": "Proyecto Cuatro",
-            "kind": "API REST",
-            "role": "Backend",
-            "status": "Ejemplo",
-            "desc": "Espacio para otro proyecto: una API, una herramienta o un experimento."
+            "title": "Kanban App",
+            "kind": "Aplicación web full-stack",
+            "role": "Full-stack",
+            "status": "En desarrollo",
+            "desc": "Gestor de proyectos tipo Kanban con equipos. Monorepo con frontend en React, API REST en Express y base de datos PostgreSQL, con esquemas Zod compartidos entre cliente y servidor."
         },
         "en": {
-            "title": "Project Four",
-            "kind": "REST API",
-            "role": "Backend",
-            "status": "Sample",
-            "desc": "Space for another project: an API, a tool or an experiment."
+            "title": "Kanban App",
+            "kind": "Full-Stack Web Application",
+            "role": "Full-Stack",
+            "status": "In progress",
+            "desc": "Team-based Kanban project manager. Monorepo with a React frontend, an Express REST API and a PostgreSQL database, with Zod schemas shared between client and server."
         }
     }
 ]
