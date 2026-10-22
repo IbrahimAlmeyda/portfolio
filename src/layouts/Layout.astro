@@ -15,6 +15,13 @@ const { lang = defaultLang } = Astro.props;
 const t = useTranslations(lang);
 const { title = t("meta.title"), description = t("meta.description") } =
   Astro.props;
+
+const site = Astro.site;
+const abs = (path: string) => (site ? new URL(path, site).href : path);
+const canonical = site ? new URL(Astro.url.pathname, site).href : undefined;
+const image = abs("/screenshot.png");
+const ogLocale = lang === "es" ? "es_ES" : "en_US";
+const ogLocaleAlt = lang === "es" ? "en_US" : "es_ES";
 ---
 
 <html lang={lang}>
@@ -22,11 +29,60 @@ const { title = t("meta.title"), description = t("meta.description") } =
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="author" content="Ibrahim Almeyda" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="theme-color"
+      content="#f4f3ef"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#141413"
+      media="(prefers-color-scheme: dark)"
+    />
+    {canonical && <link rel="canonical" href={canonical} />}
+    {
+      site && (
+        <>
+          <link rel="alternate" hreflang="es" href={abs("/")} />
+          <link rel="alternate" hreflang="en" href={abs("/en/")} />
+          <link rel="alternate" hreflang="x-default" href={abs("/")} />
+        </>
+      )
+    }
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ibrahim Almeyda" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlt} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:alt" content={title} />
+    {canonical && <meta property="og:url" content={canonical} />}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
+      />
+    </noscript>
     <title>{title}</title>
     <script is:inline>
       try {
@@ -36,8 +92,9 @@ const { title = t("meta.title"), description = t("meta.description") } =
     </script>
   </head>
   <body>
+    <a class="skip-link" href="#main">{t("a11y.skip")}</a>
     <Header lang={lang} />
-    <main><slot /></main>
+    <main id="main" tabindex="-1"><slot /></main>
     <Footer lang={lang} />
   </body>
 </html>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.ibrahimalmeyda.dev/sitemap-index.xml

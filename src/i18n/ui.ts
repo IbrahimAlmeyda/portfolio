@@ -7,7 +7,7 @@ export const ui = {
 
     // Meta
     "meta.title": "Ibrahim Almeyda — Desarrollador Full Stack",
-    "meta.description": "Portafolio de desarrollador full stack",
+    "meta.description": "Portafolio de Ibrahim Almeyda, desarrollador full stack. Aplicaciones web con React, Node y PostgreSQL que convierten procesos manuales en herramientas útiles.",
 
     // Header
     "nav.projects": "Proyectos",
@@ -17,13 +17,15 @@ export const ui = {
     "nav.openMenu": "Abrir menú",
     "nav.closeMenu": "Cerrar menú",
     "nav.theme": "Cambiar tema",
+    "a11y.skip": "Saltar al contenido",
+    "a11y.newTab": "(se abre en una pestaña nueva)",
     "nav.language": "Idioma",
     "nav.soon": "Próximamente",
 
     // Hero
     "hero.badge": "PORTAFOLIO 2026",
     "hero.role": "Desarrollador Full Stack",
-    "hero.h1": "Construyo software que se usa de verdad",
+    "hero.h1": "Soluciones web a la medida de tu negocio",
     "hero.lead": "Aplicaciones web con React, Node y PostgreSQL. Convierto procesos manuales en herramientas que la gente usa todos los días.",
     "hero.cta1": "Ver proyectos ↓",
     "hero.cta2": "Contacto",
@@ -93,7 +95,7 @@ export const ui = {
   en: {
     // Meta
     "meta.title": "Ibrahim Almeyda — Full Stack Developer",
-    "meta.description": "Full stack developer portfolio",
+    "meta.description": "Portfolio of Ibrahim Almeyda, full stack developer. Web apps built with React, Node and PostgreSQL that turn manual processes into useful tools.",
 
     // Header
     "nav.projects": "Projects",
@@ -103,13 +105,15 @@ export const ui = {
     "nav.openMenu": "Open menu",
     "nav.closeMenu": "Close menu",
     "nav.theme": "Toggle theme",
+    "a11y.skip": "Skip to content",
+    "a11y.newTab": "(opens in a new tab)",
     "nav.language": "Language",
     "nav.soon": "Coming soon",
 
     // Hero
     "hero.badge": "PORTFOLIO 2026",
     "hero.role": "Full Stack Developer",
-    "hero.h1": "I build software people actually use",
+    "hero.h1": "Web solutions tailored to your business",
     "hero.lead": "Web apps with React, Node and PostgreSQL. I turn manual processes into tools people use every day.",
     "hero.cta1": "View projects ↓",
     "hero.cta2": "Contact",
